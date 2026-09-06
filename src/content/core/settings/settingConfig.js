@@ -627,7 +627,7 @@ export const SETTINGS_CONFIG = {
                 default: false,
                 childSettings: {
                     displayAppThemeOwnProfile: {
-                        label: 'Display app theme your on own profile',
+                        label: 'Display your app theme on your profile',
                         description: [
                             'Displays your app theme on your profile to other users!',
                             'To change this setting, you can go to [Roblox Settings > Browser preferences > App theme](https://www.roblox.com/my/account#!/browser-preferences)',
