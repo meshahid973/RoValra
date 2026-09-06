@@ -627,7 +627,7 @@ export const SETTINGS_CONFIG = {
                 default: false,
                 childSettings: {
                     displayAppThemeOwnProfile: {
-                        label: 'Display app theme your on own profile',
+                        label: 'Display your app theme on your profile',
                         description: [
                             'Displays your app theme on your profile to other users!',
                             'To change this setting, you can go to [Roblox Settings > Browser preferences > App theme](https://www.roblox.com/my/account#!/browser-preferences)',
@@ -685,6 +685,15 @@ export const SETTINGS_CONFIG = {
                 ],
                 type: 'checkbox',
                 default: true,
+            },
+            creatorStatsEnabled: {
+                label: 'Creator Stats',
+                description: [
+                    "Shows a user's combined CCU, experience visits, and owned community member count on their profile.",
+                ],
+                type: 'checkbox',
+                default: false,
+                contributors: ['4632962611'],
             },
             socialLinksEnabled: {
                 label: 'Profile Social Links',
@@ -1293,7 +1302,7 @@ export const SETTINGS_CONFIG = {
                 ],
                 type: 'checkbox',
                 default: false,
-                contributors: ['760897332'],
+                contributors: ['760897332', '3598865306'],
             },
             homeLayoutEnabled: {
                 label: 'Home Layout',
@@ -1831,7 +1840,7 @@ export const SETTINGS_CONFIG = {
                         default: true,
                     },
                     privacyTogglesDropdownPrivateServerPrivacyEnabled: {
-                        label: 'Experience Status Toggle',
+                        label: 'Private Server Privacy Toggle',
                         description: [
                             'Quickly manage who can invite you to private servers.'
                         ],
@@ -1839,7 +1848,7 @@ export const SETTINGS_CONFIG = {
                         default: true,
                     },
                     privacyTogglesDropdownInventoryPrivacyEnabled: {
-                        label: 'Inventory Toggle',
+                        label: 'Inventory Privacy Toggle',
                         description: [
                             'Quickly manage who can view your inventory.'
                         ],

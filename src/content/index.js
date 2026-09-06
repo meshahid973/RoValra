@@ -142,6 +142,7 @@ import { init as initProfileShowcase } from './features/profile/showcase.js';
 import { init as initStatus } from './features/profile/header/status.js';
 import { init as initLastPlayed } from './features/profile/header/lastplayed.js';
 import { init as initProfileViews } from './features/profile/header/profileViews.js';
+import { init as initCreatorStats } from './features/profile/header/creatorStats.js';
 import { init as initProfilePronouns } from './features/profile/header/pronouns.js';
 import { init as initProfileNotes } from './features/profile/header/profileNotes.js';
 import { init as initCurrentlyPlayingSubplace } from './features/profile/header/currentlyPlayingSubplace.js';
@@ -167,8 +168,7 @@ import { init as initProfileCustomization } from './features/profile/profileCust
 import { init as initProfileEditFeatures } from './core/profile/profileEdit.js';
 import { init as initSocialLinks } from './features/profile/socialLinks.js';
 import { initProfileButton as initSendRobuxProfileButton } from './features/plus/sendRobux.js';
-import { init as initFriendStatusSort } from './features/profile/friends/statusSort.js';
-import { initProfile as initProfileAppThemesOnProfiles } from './features/profile/appThemesOnProfiles.js'
+import { initProfile as initProfileAppThemesOnProfiles } from './features/profile/appThemesOnProfiles.js';
 
 // Settings
 import { init as initSettingsPage } from './features/settings/index.js';
@@ -400,6 +400,7 @@ const featureRoutes = [
             initLastPlayed,
             initProfilePronouns,
             initProfileNotes,
+            initCreatorStats,
             initProfileViews,
             initCurrentlyPlayingSubplace,
             initGroupRole,
@@ -630,20 +631,31 @@ async function initializePage() {
     const startFeatures = async () => {
         const featureStartTime = performance.now();
 
-        await t('__i18n_ready__').catch(() => {});
-
-        await enforceSettingOverrides();
-        const settings = await loadSettings();
-        document.dispatchEvent(
-            new CustomEvent('rovalra:settingsState', {
-                detail: {
-                    disableThumbnailBackground:
-                        settings.disableThumbnailBackground === true,
-                    disableThumbnailProfileFrame:
-                        settings.disableThumbnailProfileFrame === true,
-                },
-            }),
+        await t('__i18n_ready__').catch((error) =>
+            console.error('RoValra: Locale initialization failed.', error),
         );
+        enforceSettingOverrides().catch((error) =>
+            console.error(
+                'RoValra: Failed to enforce setting overrides.',
+                error,
+            ),
+        );
+        loadSettings()
+            .then((settings) => {
+                document.dispatchEvent(
+                    new CustomEvent('rovalra:settingsState', {
+                        detail: {
+                            disableThumbnailBackground:
+                                settings.disableThumbnailBackground === true,
+                            disableThumbnailProfileFrame:
+                                settings.disableThumbnailProfileFrame === true,
+                        },
+                    }),
+                );
+            })
+            .catch((error) =>
+                console.error('RoValra: Failed to load settings.', error),
+            );
         runFeaturesForPage();
         scheduleSettingsMaintenance();
 
